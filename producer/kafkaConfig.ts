@@ -1,7 +1,12 @@
 import { Kafka, Partitioners, logLevel } from "kafkajs";
 import * as avro from "avsc";
-
+/**
+ * The `KafkaConfig` class is responsible for configuring and managing the Kafka client, consumer, and producer.
+ */
 class KafkaConfig {
+      /**
+   * Initializes the Kafka client, producer, and consumer with default settings.
+   */
   public kafka: any;
   public consumer: any;
   public producer: any;
@@ -21,7 +26,11 @@ class KafkaConfig {
       clientId: "my-app",
     });
   }
-
+  /**
+   * Connects to the Kafka broker, sends the specified messages to the specified topic, and disconnects from the broker.
+   * @param topic - The topic to produce messages to.
+   * @param messages - The messages to produce.
+   */
   async produce(topic: string, messages: any) {
     try {
       await this.producer.connect();
@@ -35,23 +44,6 @@ class KafkaConfig {
       await this.producer.disconnect();
     }
   }
-
-  // async consume(topic: string, callback: any) {
-  //     try {
-  //         await this.consumer.connect({groupId: "test-group"})
-  //         await this.consumer.subscribe({ topic, fromBeginning: true })
-  //         await this.consumer.run({
-  //             eachMessage: async ({ topic, partition, message }: any) => {
-  //               console.log({
-  //                 value: message.value.toString(),
-  //               })
-  //             },
-  //           })
-  //     } catch (error) {
-  //         console.error(error);
-
-  //     }
-  // }
 }
 
 export { KafkaConfig };
